@@ -1,0 +1,13 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" 
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="xyz.freedom.v2ray">
+    <method name="doProxy">
+       <arg type="s" name="fname" direction="in" />
+       <arg type="b" name="ok" direction="out" />
+    </method>
+    <signal name="statusChanged">
+       <arg name="fname" type="s"/>
+    </signal>
+  </interface>
+</node>

@@ -1,0 +1,16 @@
+[Unit]
+Description=Project V V2Ray Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+PIDFile=/run/v2ray.pid
+ExecStart=/usr/bin/v2ray/v2ray -config /home/nemo/.config/v2ray/config.json
+RestartPreventExitStatus=23
+LimitNOFILE=102400
+RestartSec=5
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

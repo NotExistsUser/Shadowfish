@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=xyz.freedom.v2ray
+Exec=/usr/bin/shadowfishd
+User=root
