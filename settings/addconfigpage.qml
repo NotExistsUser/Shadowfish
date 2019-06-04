@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "./database.js" as DB
+import "./clipboardutil.js" as Util
 
 Page {
 
@@ -50,6 +51,30 @@ Page {
         contentHeight: column.height
 
         PullDownMenu{
+            MenuItem{
+                text: qsTr("Filled from Clipboard")
+                enabled: Clipboard.text && (
+                             Clipboard.text.indexOf("vmess://") > -1
+                             || Clipboard.text.indexOf("ss://") > -1
+                             ) && !remarkField.text
+                onClicked: {
+                    var confText = Clipboard.text;
+                    thisconfig = Util.handler(confText);
+                    if(thisconfig){
+                        pageStack.replace(Qt.resolvedUrl("addconfigpage.qml"),{
+                                                       "thisconfig": thisconfig,
+                                                       "signalCenter": signalCenter
+                                                   })
+                    }else{
+                        signalCenter.notify(qsTr("Not a validate format"))
+                    }
+                }
+            }
+
+            MenuLabel {
+                text: qsTr("^How to use at About page^")
+            }
+
             MenuItem{
                 text: qsTr("Discard")
                 onClicked: {

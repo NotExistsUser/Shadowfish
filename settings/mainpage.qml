@@ -22,6 +22,7 @@ Page {
         signal error;
         signal updateSuccess;
         signal addSuccess;
+        signal notify(var str);
 
         onError: {
             notification.show(qsTr("Error occured"))
@@ -34,6 +35,10 @@ Page {
         onAddSuccess: {
             notification.show(qsTr("Add successful"));
             DB.queryall(allConfigsModel)
+        }
+
+        onNotify: {
+            notification.show(str);
         }
 
     }

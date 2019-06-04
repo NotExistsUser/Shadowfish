@@ -27,6 +27,10 @@
         <source>Default socks port is 1080, and a dokodemo-door port 12345</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>About &lt;b&gt;Filled from Clipboard&lt;/b&gt; feature, use CodeReader and scan qrcode from %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>addconfigpage</name>
@@ -152,6 +156,18 @@
     </message>
     <message>
         <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not a validate format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filled from Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>^How to use at About page^</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

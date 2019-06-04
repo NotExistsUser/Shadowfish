@@ -27,6 +27,10 @@
         <source>Default socks port is 1080, and a dokodemo-door port 12345</source>
         <translation>默认的socks端口是1080，dokodemo端口是12345</translation>
     </message>
+    <message>
+        <source>About &lt;b&gt;Filled from Clipboard&lt;/b&gt; feature, use CodeReader and scan qrcode from %1</source>
+        <translation>关于&lt;b&gt;从剪切板填充&lt;/b&gt;功能，使用CodeReader扫描来自%1的二维码</translation>
+    </message>
 </context>
 <context>
     <name>addconfigpage</name>
@@ -153,6 +157,18 @@
     <message>
         <source>Password</source>
         <translation>密码</translation>
+    </message>
+    <message>
+        <source>Filled from Clipboard</source>
+        <translation>从剪切板填充</translation>
+    </message>
+    <message>
+        <source>Not a validate format</source>
+        <translation>不是一个有效的格式</translation>
+    </message>
+    <message>
+        <source>^How to use at About page^</source>
+        <translation>^去关于页面查看如何使用^</translation>
     </message>
 </context>
 <context>

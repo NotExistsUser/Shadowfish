@@ -32,6 +32,8 @@ OTHER_FILES += rpm/shadowfish.spec \
                settings/mainpage.qml \
                settings/aboutpage.qml   \
                settings/database.js   \
+               settings/addconfigpage.qml \
+               settings/clipboardutil.js \
                settings/settings-v2ray.json \
                v2ray/config.json \
                v2ray/shadowfish.sh \
@@ -64,6 +66,7 @@ settings.files = settings/mainpage.qml \
                 settings/aboutpage.qml \
                 settings/addconfigpage.qml \
                 settings/database.js \
+                settings/clipboardutil.js \
                 settings/v2ray.png
 settings.path = /usr/share/jolla-settings/pages/v2ray/
 INSTALLS += settings
@@ -102,9 +105,6 @@ system(lupdate . -ts $$PWD/translations/settings-network-v2ray-zh_CN.ts)
 #system(lrelease -idbased $$PWD/translations/*.ts)
 system(lrelease $$PWD/translations/*.ts)
 
-INSTALLS += translations
-
-DISTFILES += \
-    settings/addconfigpage.qml
+INSTALLS += translations 
 
 
