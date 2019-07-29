@@ -3,6 +3,8 @@ import Sailfish.Silica 1.0
 import Nemo.Configuration 1.0
 import Nemo.DBus 2.0
 import Nemo.Notifications 1.0
+import com.jolla.settings 1.0
+import org.nemomobile.systemsettings 1.0
 import "./database.js" as DB
 
 Page {
@@ -44,7 +46,12 @@ Page {
     }
 
     onActiveStateChanged: {
-        enableSwitch.busy = false
+        enableSwitch.busy = false;
+        if(activeState){
+            eventsView.show();
+        }else{
+            eventsView.close();
+        }
     }
 
     ConfigurationGroup {
@@ -67,7 +74,6 @@ Page {
         }
     }
 
-
     Notification{
         id: notification
         function show(message, icn) {
@@ -89,6 +95,32 @@ Page {
         expireTimeout: 3000
     }
 
+
+    Notification {
+        id: eventsView
+        category: "x-nemo.v2ray"
+        appName: "V2ray"
+        appIcon: "image://theme/icon-settings-v2ray"
+        //         summary: "Notification summary"
+        body: qsTr("V2ray started")
+        //         previewSummary: "Notification preview summary"
+        previewBody: qsTr("V2ray started")
+        expireTimeout: 0
+        onClicked: {
+            goToSettings("system_settings/connectivity/v2ray")
+        }
+        onClosed: {
+            if(activeState){
+                publish()
+            }
+        }
+        function show(){
+            summary = allConfigsModel.get(configsView.currentIndex).remark
+            previewSummary = summary
+            expireTimeout = 0
+            publish()
+        }
+    }
 
     DBusInterface {
         id: systemdServiceIface
@@ -262,7 +294,7 @@ Page {
                     ListView.onRemove: animateRemoval(listItem)
                     contentHeight: nodeSwitch.height
                                    + ( menuOpen? contextMenu.height : 0)
-                                    + Theme.paddingSmall
+                                   + Theme.paddingSmall
                     menu: contextMenu
                     function remove() {
                         remorseAction(qsTr("Deleting"), function() {
@@ -382,56 +414,56 @@ Page {
             text = text.replace("NETWORK", '"' + configJson.network + '"');
             text = text.replace("SERVERS_CONFIG", "null");
             text = text.replace("VNEXT_CONFIG",'[{' +
-            '"address": "' + configJson.server + '",' +
-            '  "port": ' + configJson.port + ', '+
-            '  "users": [ '+
-            '    { '+
-            '      "id": "'+ configJson.uuid +'", '+
-            '      "alterId": '+ configJson.alterid +', '+
-            '      "security": "'+ configJson.security +'" '+
-            '    } '+
-            '  ] '+
-            '}]');
+                                '"address": "' + configJson.server + '",' +
+                                '  "port": ' + configJson.port + ', '+
+                                '  "users": [ '+
+                                '    { '+
+                                '      "id": "'+ configJson.uuid +'", '+
+                                '      "alterId": '+ configJson.alterid +', '+
+                                '      "security": "'+ configJson.security +'" '+
+                                '    } '+
+                                '  ] '+
+                                '}]');
 
             switch(configJson.network){
             case "tcp":
                 text = text.replace("TCP_SETTINGS",'{'+
-                '"header": { '+
-                '  "type": "'+ configJson.type + '"' +
-                '}'+
-                '}');
+                                    '"header": { '+
+                                    '  "type": "'+ configJson.type + '"' +
+                                    '}'+
+                                    '}');
                 break;
             case "http":
                 text = text.replace("HTTP_SETTINGS",'{'+
-                '"host": ["'+ configJson.host +'"],'+
-                '"path": "' + configJson.path + '"'+
-                '}');
+                                    '"host": ["'+ configJson.host +'"],'+
+                                    '"path": "' + configJson.path + '"'+
+                                    '}');
                 text = text.replace("TLS_SETTINGS",'{'+
-                    '"allowInsecure": ' + configJson.insecure +','+
-                    '"serverName": null'+
-                    '}');
+                                    '"allowInsecure": ' + configJson.insecure +','+
+                                    '"serverName": null'+
+                                    '}');
                 text = text.replace("MYTLS", '"'+ configJson.tls + '"');
                 break;
             case "ws":
                 text = text.replace("WS_SETTINGS",'{'+
-                '"path": "' + configJson.path + '",'+
-                '"connectionReuse": true,'+
-                '"headers": {'+
-                '  "Host": "' + configJson.host + '"'+
-                '}'+
-                '}');
+                                    '"path": "' + configJson.path + '",'+
+                                    '"connectionReuse": true,'+
+                                    '"headers": {'+
+                                    '  "Host": "' + configJson.host + '"'+
+                                    '}'+
+                                    '}');
                 text = text.replace("TLS_SETTINGS",'{'+
-                    '"allowInsecure": ' + configJson.insecure +','+
-                    '"serverName": null'+
-                    '}');
+                                    '"allowInsecure": ' + configJson.insecure +','+
+                                    '"serverName": null'+
+                                    '}');
                 text = text.replace("MYTLS", '"'+ configJson.tls + '"');
                 break;
             case "kcp":
                 text = text.replace("KCP_SETTINGS",'{'+
-                    '"header": {'+
-                    '"type": "' + configJson.type + '"'+
-                    '}'+
-                '}');
+                                    '"header": {'+
+                                    '"type": "' + configJson.type + '"'+
+                                    '}'+
+                                    '}');
                 break;
             default:
                 console.log("Do nothing");
@@ -442,13 +474,13 @@ Page {
             text = text.replace("MUX_ENABLE", false);
             text = text.replace("VNEXT_CONFIG", "null");
             text = text.replace("SERVERS_CONFIG",'[{' +
-            '"address": "' + configJson.server + '",' +
-            '"port": ' + configJson.port + ', '+
-            '"method": "' + configJson.security + '",' +
-            '"password": "' + configJson.uuid + '",' +
-            '"ota": false ,'+
-            '"level": 1'+
-            '}]');
+                                '"address": "' + configJson.server + '",' +
+                                '"port": ' + configJson.port + ', '+
+                                '"method": "' + configJson.security + '",' +
+                                '"password": "' + configJson.uuid + '",' +
+                                '"ota": false ,'+
+                                '"level": 1'+
+                                '}]');
             text = text.replace("NETWORK", "null");
         }
 
