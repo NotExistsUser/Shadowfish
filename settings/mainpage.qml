@@ -14,6 +14,7 @@ Page {
     readonly property string v2rayConfTemplatePath: "/home/nemo/.config/v2ray/config.json.template"
     property string configStr;
     property string usedConfig;
+    property int replaceId;
 
     ListModel{
         id: allConfigsModel
@@ -48,9 +49,9 @@ Page {
     onActiveStateChanged: {
         enableSwitch.busy = false;
         if(activeState){
-            eventsView.show();
+            // eventsView.show();
         }else{
-            eventsView.close();
+            // eventsView.hide();
         }
     }
 
@@ -101,30 +102,51 @@ Page {
         category: "x-nemo.v2ray"
         appName: "V2ray"
         appIcon: "image://theme/icon-settings-v2ray"
-        //         summary: "Notification summary"
         body: qsTr("V2ray started")
-        //         previewSummary: "Notification preview summary"
         previewBody: qsTr("V2ray started")
         expireTimeout: 0
+        replacesId: 1
+        remoteActions: [{
+             "name": "default",
+             "displayName": "Open v2ray page",
+             "icon": "icon-s-do-it",
+             "service": "com.jolla.settings",
+             "path": "/com/jolla/settings/ui",
+             "iface": "com.jolla.settings.ui",
+             "method": "showPage",
+             "arguments": [ "system_settings/connectivity/v2ray" ]
+         }]
         onClicked: {
-            goToSettings("system_settings/connectivity/v2ray")
+            console.log("clicked")
         }
         onClosed: {
+            console.log("closed")
             if(activeState){
-                publish()
+                show()
             }
         }
         function show(){
-            summary = allConfigsModel.get(configsView.currentIndex).remark
+            console.log("replacesId:", replacesId);
+
+            //hide first
+            if(replacesId != 1){
+                replacesId = replacesId
+            }else{
+                replacesId = 1;
+            }
+            summary = v2rayConf.remark
             previewSummary = summary
             expireTimeout = 0
-            publish()
+            publish();
+        }
+        function hide(){
+            close();
         }
     }
 
     DBusInterface {
         id: systemdServiceIface
-        bus: DBus.SystemBus
+        bus: DBus.SessionBus
         service: "org.freedesktop.systemd1"
         path: "/org/freedesktop/systemd1/unit/projectv_2ev2ray_2eservice"
         iface: 'org.freedesktop.systemd1.Unit'
@@ -159,7 +181,7 @@ Page {
     }
 
     DBusInterface {
-        bus: DBus.SystemBus
+        bus: DBus.SessionBus
         service: "org.freedesktop.systemd1"
         path: "/org/freedesktop/systemd1/unit/projectv_2ev2ray_2eservice"
         iface: 'org.freedesktop.DBus.Properties'
@@ -170,7 +192,7 @@ Page {
     }
 
     DBusInterface {
-        bus: DBus.SystemBus
+        bus: DBus.SessionBus
         service: "org.freedesktop.systemd1"
         path: "/org/freedesktop/systemd1"
         iface: "org.freedesktop.systemd1.Manager"
@@ -405,7 +427,7 @@ Page {
             return false;
         }
         var text = configStr;
-        console.log("usedConfig: ", usedConfig);
+        // console.log("usedConfig: ", usedConfig);
         var configJson = JSON.parse(usedConfig);
         text = text.replace("PROTOCOL_TYPE", configJson.vtype.toLowerCase());
 

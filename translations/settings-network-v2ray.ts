@@ -245,5 +245,9 @@
         <source>Update successful</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>V2ray started</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

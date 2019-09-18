@@ -38,7 +38,8 @@ OTHER_FILES += rpm/shadowfish.spec \
                v2ray/config.json \
                v2ray/shadowfish.sh \
                translations/*.ts \
-               dbus/*
+               dbus/* \
+               systemd/myv2ray.service
 
 
 # DBus service
@@ -57,7 +58,8 @@ dbusConf.path = /etc/dbus-1/system.d/
 INSTALLS += dbusConf
 
 # DBus service 2
-dbusService2.files = dbus/projectv.v2ray.service
+dbusService2.files = dbus/projectv.v2ray.service \
+                                 systemd/myv2ray.service
 dbusService2.path = /lib/systemd/system/
 INSTALLS += dbusService2
 

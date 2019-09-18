@@ -20,7 +20,7 @@ if [ "$1" = "startProxy" ] ;then
             exit 1;
         fi
     fi
-    systemctl status projectv.v2ray.service 2>&1 >> /dev/null
+    systemctl status myv2ray.service 2>&1 >> /dev/null
     if [ "$?" -ne "0" ]; then
         echo "start v2ray failed"
         exit 1;
@@ -47,10 +47,10 @@ elif [ "$1" = "stopProxy" ]; then
     /sbin/iptables -t nat -X # V2RAY
     exit 0;
 elif [ "$1" = "startSvc" ]; then
-    systemctl start projectv.v2ray.service
+    systemctl start myv2ray.service
     exit $?;
 elif [ "$1" = "stopSvc" ]; then
-    systemctl stop projectv.v2ray.service    
+    systemctl stop myv2ray.service
     exit $?;
 else
     exit 1;

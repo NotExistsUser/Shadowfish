@@ -1,16 +1,13 @@
 [Unit]
 Description=Project V V2Ray Service
-After=network.target
-Wants=network.target
+After=dbus.socket
+Requires=dbus.socket
 
 [Service]
-Type=simple
-PIDFile=/run/v2ray.pid
-ExecStart=/usr/bin/v2ray/v2ray -config /home/nemo/.config/v2ray/config.json
-RestartPreventExitStatus=23
-LimitNOFILE=102400
-RestartSec=5
-KillSignal=SIGINT
+Type=dbus
+BusName=xyz.freedom.v2ray
+EnvironmentFile=-/var/lib/environment/v2ray/*.conf
+ExecStart=/usr/bin/shadowfishd
+Restart=always
+RestartSec=15
 
-[Install]
-WantedBy=multi-user.target

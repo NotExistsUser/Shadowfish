@@ -1,4 +1,6 @@
 [D-BUS Service]
 Name=xyz.freedom.v2ray
-Exec=/usr/bin/shadowfishd
+Interface=xyz.freedom.v2ray
+Exec=/bin/false
 User=root
+SystemdService=projectv.v2ray.service

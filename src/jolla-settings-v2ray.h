@@ -1,5 +1,5 @@
-#ifndef GOSTBUTTON_H
-#define GOSTBUTTON_H
+#ifndef V2RAY_H
+#define V2RAY_H
 
 #include <QtCore/QObject>
 #include <QtCore/QSet>
@@ -28,4 +28,4 @@ private:
     V2rayAdaptor *m_adaptor;
 };
 
-#endif // GOSTBUTTON_H
+#endif // V2RAY_H
