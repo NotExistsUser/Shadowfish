@@ -1,7 +1,7 @@
 {
     "log":{
       "access": "",
-      "error": "",
+      "error": "/var/log/v2ray/error.log",
       "loglevel": "warning"
     },
     "inbounds": [

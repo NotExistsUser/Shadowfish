@@ -2,6 +2,21 @@
 export PATH=/sbin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/nemo/bin
 SERVER=$(su nemo -c '/usr/bin/dconf read /apps/jolla-settings-v2ray/serverIP'|sed $'s/\'//g')
 LOCALPORT=12345
+LOGPATH=/var/log/v2ray
+
+# init log path
+if [ ! -d $LOGPATH ]; then
+    mkdir $LOGPATH
+fi 
+
+# clean log file if bigger than 10KB
+if [ -f $LOGPATH/error.log ]; then
+    logsize=$(ls -l $LOGPATH/error.log | awk '{ print $5 }')
+    if [ "$logsize" -gt "10240" ]; then
+        echo > $LOGPATH/error.log 
+    fi
+fi
+
 
 if [ "$1" = "startProxy" ] ;then
     /sbin/iptables -t nat -F # V2RAY
@@ -20,7 +35,7 @@ if [ "$1" = "startProxy" ] ;then
             exit 1;
         fi
     fi
-    systemctl status myv2ray.service 2>&1 >> /dev/null
+    systemctl status myv2ray.service 2>&1 >> $LOGPATH/error.log
     if [ "$?" -ne "0" ]; then
         echo "start v2ray failed"
         exit 1;
@@ -47,7 +62,7 @@ elif [ "$1" = "stopProxy" ]; then
     /sbin/iptables -t nat -X # V2RAY
     exit 0;
 elif [ "$1" = "startSvc" ]; then
-    systemctl start myv2ray.service
+    systemctl start myv2ray.service 2>&1 >> $LOGPATH/error.log
     exit $?;
 elif [ "$1" = "stopSvc" ]; then
     systemctl stop myv2ray.service

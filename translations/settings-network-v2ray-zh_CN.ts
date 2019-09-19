@@ -247,7 +247,22 @@
     </message>
     <message>
         <source>V2ray started</source>
-        <translation type="unfinished"></translation>
+        <translation>V2ray已启动</translation>
+    </message>
+    <message>
+        <source>Error log</source>
+        <translation>错误日志</translation>
+    </message>
+</context>
+<context>
+    <name>viewpage</name>
+    <message>
+        <source>Error log</source>
+        <translation>错误日志</translation>
+    </message>
+    <message>
+        <source>error log not exist</source>
+        <translation>错误日志文件不存在</translation>
     </message>
 </context>
 </TS>

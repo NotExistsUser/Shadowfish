@@ -33,7 +33,9 @@ OTHER_FILES += rpm/shadowfish.spec \
                settings/aboutpage.qml   \
                settings/database.js   \
                settings/addconfigpage.qml \
+               settings/viewpage.qml \
                settings/clipboardutil.js \
+               settings/fileutil.js \
                settings/settings-v2ray.json \
                v2ray/config.json \
                v2ray/shadowfish.sh \
@@ -67,8 +69,10 @@ INSTALLS += dbusService2
 settings.files = settings/mainpage.qml \
                 settings/aboutpage.qml \
                 settings/addconfigpage.qml \
+                settings/viewpage.qml \
                 settings/database.js \
                 settings/clipboardutil.js \
+                settings/fileutil.js \
                 settings/v2ray.png
 settings.path = /usr/share/jolla-settings/pages/v2ray/
 INSTALLS += settings

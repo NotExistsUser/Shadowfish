@@ -48,7 +48,7 @@ id: aboutPage
                       'Recommend server side config is %1 , the '+
                       'default by v2ray is OK too.').arg("<a href='https://paste.ubuntu.com/p/DqpB54MrRG/'>https://paste.ubuntu.com/p/DqpB54MrRG</a> ") +
                       qsTr('The template file is ') + '/home/nemo/.config/v2ray/config.json.template, ' +
-                      qsTr('Default socks port is 1080, and a dokodemo-door port 12345') + '<br/>' +
+                      qsTr('Default socks port is 1080, and a dokodemo-door port 12345') + '<br/><br/>' +
                       qsTr('About <b>Filled from Clipboard</b> feature, use CodeReader and scan qrcode from %1').arg(
                       '<a href="https://github.com/2dust/v2rayN">v2rayN</a>')
                       ;

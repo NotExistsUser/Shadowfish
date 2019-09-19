@@ -6,6 +6,7 @@ import Nemo.Notifications 1.0
 import com.jolla.settings 1.0
 import org.nemomobile.systemsettings 1.0
 import "./database.js" as DB
+import "./fileutil.js" as FileUtil
 
 Page {
     id: page
@@ -146,9 +147,9 @@ Page {
 
     DBusInterface {
         id: systemdServiceIface
-        bus: DBus.SessionBus
+        bus: DBus.SystemBus
         service: "org.freedesktop.systemd1"
-        path: "/org/freedesktop/systemd1/unit/projectv_2ev2ray_2eservice"
+        path: "/org/freedesktop/systemd1/unit/myv2ray_2eservice"
         iface: 'org.freedesktop.systemd1.Unit'
 
         signalsEnabled: true
@@ -181,9 +182,9 @@ Page {
     }
 
     DBusInterface {
-        bus: DBus.SessionBus
+        bus: DBus.SystemBus
         service: "org.freedesktop.systemd1"
-        path: "/org/freedesktop/systemd1/unit/projectv_2ev2ray_2eservice"
+        path: "/org/freedesktop/systemd1/unit/myv2ray_2eservice"
         iface: 'org.freedesktop.DBus.Properties'
 
         signalsEnabled: true
@@ -192,7 +193,7 @@ Page {
     }
 
     DBusInterface {
-        bus: DBus.SessionBus
+        bus: DBus.SystemBus
         service: "org.freedesktop.systemd1"
         path: "/org/freedesktop/systemd1"
         iface: "org.freedesktop.systemd1.Manager"
@@ -201,6 +202,9 @@ Page {
         signal unitNew(string name)
         onUnitNew: {
             if (name == "xyz.freedom.v2ray.service") {
+                systemdServiceIface.updateProperties()
+            }
+            if (name == "myv2ray.service") {
                 systemdServiceIface.updateProperties()
             }
         }
@@ -226,6 +230,14 @@ Page {
                     pageStack.push(Qt.resolvedUrl("aboutpage.qml"));
                 }
             }
+
+            MenuItem{
+                text:qsTr("Error log")
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("viewpage.qml"));
+                }
+            }
+
             MenuItem{
                 text:qsTr("Add Server Node")
                 onClicked: {
@@ -285,12 +297,17 @@ Page {
                                 usedConfig = allConfigsModel.get(i).config;
                             }
                         }
-                        var saved = saveFile();
-                        if(saved){
+                        if(checked){
                             callService(activeState, callProxy)
                             checkState.start();
                         }else{
-                            notification.show(qsTr("Save to config file failed"));
+                            var saved = saveFile();
+                            if(saved){
+                                callService(activeState, callProxy)
+                                checkState.start();
+                            }else{
+                                notification.show(qsTr("Save to config file failed"));
+                            }
                         }
 
                     }
@@ -383,11 +400,11 @@ Page {
     }
 
     function getFromConfFile(){
-        doesFileExist(v2rayConfTemplatePath, function(o){
+        FileUtil.doesFileExist(v2rayConfTemplatePath, function(o){
             if(!o.responseText){
                 // pass
             }else{
-                getFile(v2rayConfTemplatePath, function(o){
+                FileUtil.getFile(v2rayConfTemplatePath, function(o){
                     try{
                         configStr = o.responseText;
                     }catch(e){
@@ -399,27 +416,7 @@ Page {
         });
     }
 
-    function doesFileExist(url, callback){
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.send('');
-        xhr.onreadystatechange = (function(myxhr){
-            return function(){
-                if(myxhr.readyState === 4) callback(myxhr);
-            }
-        })(xhr);
-    }
-
-    function getFile(url, callback){
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = (function(myxhr){
-            return function(){
-                if(myxhr.readyState === 4) callback(myxhr);
-            }
-        })(xhr);
-        xhr.open('GET', url, true);
-        xhr.send('');
-    }
+    
 
     function saveFile() {
         if(!configStr){
@@ -507,7 +504,7 @@ Page {
         }
 
 
-        
+
         // clean marcs
         text = text.replace(/\:.*?_SETTINGS/g, ": null");
         text = text.replace("MYTLS", "null");
@@ -554,6 +551,7 @@ Page {
                                    activeState = false;
                                    notification.show(qsTr("Start smart proxy error"));
                                }else{
+                                   systemdServiceIface.updateProperties();
                                }
                            },
                            function(error) {
@@ -570,6 +568,6 @@ Page {
         DB.signcenter = signalCenter;
         getFromConfFile();
         DB.queryall(allConfigsModel);
-        
+
     }
 }
