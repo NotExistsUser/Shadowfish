@@ -5,7 +5,7 @@
             "path": "system_settings/connectivity/v2ray",
             "title": "ShadowFish",
             "type": "page",
-            "icon": "image://theme/icon-settings-v2ray",
+            "icon": "image://theme/icon-m-v2ray",
             "translation_id": "settings-network-v2ray",
             "order": 600,
             "params": {

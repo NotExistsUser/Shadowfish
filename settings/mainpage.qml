@@ -10,7 +10,7 @@ import "./fileutil.js" as FileUtil
 
 Page {
     id: page
-    property bool activeState
+    property bool activeState: false
     readonly property string v2rayConfPath: "/home/nemo/.config/v2ray/config.json"
     readonly property string v2rayConfTemplatePath: "/home/nemo/.config/v2ray/config.json.template"
     property string configStr;
@@ -173,7 +173,7 @@ Page {
                 callProxy(true);
             }
             else {
-                checkState.start();
+                if(!checkState.running)checkState.start();
             }
         }
 
@@ -232,7 +232,7 @@ Page {
             }
 
             MenuItem{
-                text:qsTr("Error log")
+                text:qsTr("Log")
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("viewpage.qml"));
                 }
@@ -299,13 +299,15 @@ Page {
                         }
                         if(checked){
                             callService(activeState, callProxy)
-                            checkState.start();
+                            if(!checkState.running)checkState.start();
                         }else{
                             var saved = saveFile();
                             if(saved){
+                                console.log("start do it")
                                 callService(activeState, callProxy)
-                                checkState.start();
+                                if(!checkState.running)checkState.start();
                             }else{
+                                console.log("save filed")
                                 notification.show(qsTr("Save to config file failed"));
                             }
                         }
@@ -395,7 +397,7 @@ Page {
 
     onStatusChanged: {
         if(status == PageStatus.Active){
-            checkState.start();
+            if(!checkState.running)checkState.start();
         }
     }
 
@@ -525,7 +527,7 @@ Page {
         proxyBus.typedCall('doProxy', svcArgs,
                            function(result) {
                                if(!result){
-
+                                    console.log("no result")
                                }else{
                                    if (v2rayConf.smartProxy) {
                                        console.log("smart switch enabled!")

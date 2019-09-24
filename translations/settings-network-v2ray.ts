@@ -250,18 +250,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error log</source>
+        <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>viewpage</name>
     <message>
-        <source>Error log</source>
+        <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>error log not exist</source>
+        <source>log file not exist</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

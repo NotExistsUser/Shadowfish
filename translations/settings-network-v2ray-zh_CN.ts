@@ -250,19 +250,19 @@
         <translation>V2ray已启动</translation>
     </message>
     <message>
-        <source>Error log</source>
-        <translation>错误日志</translation>
+        <source>Log</source>
+        <translation>日志</translation>
     </message>
 </context>
 <context>
     <name>viewpage</name>
     <message>
-        <source>Error log</source>
-        <translation>错误日志</translation>
+        <source>Log</source>
+        <translation>日志</translation>
     </message>
     <message>
-        <source>error log not exist</source>
-        <translation>错误日志文件不存在</translation>
+        <source>log file not exist</source>
+        <translation>日志文件不存在</translation>
     </message>
 </context>
 </TS>

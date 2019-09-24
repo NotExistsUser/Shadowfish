@@ -17,6 +17,13 @@ if [ -f $LOGPATH/error.log ]; then
     fi
 fi
 
+# config test
+cd /home/nemo/.config/v2ray/
+/usr/bin/v2ray/v2ray -test /home/nemo/.config/v2ray/config.json 2>&1 >> $LOGPATH/error.log
+if [ "$?" -ne "0" ]; then
+    exit 1
+fi
+
 
 if [ "$1" = "startProxy" ] ;then
     /sbin/iptables -t nat -F # V2RAY

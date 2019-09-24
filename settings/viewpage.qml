@@ -19,7 +19,7 @@ Page {
             width: parent.width - 2*x
 
             PageHeader {
-                title: qsTr("Error log")
+                title: qsTr("Log")
             }
 
             Label {
@@ -60,7 +60,7 @@ Page {
     function getFromConfFile(){
         FileUtil.doesFileExist(errorlog_path, function(o){
             if(!o.responseText){
-                message.text = qsTr("error log not exist")
+                message.text = qsTr("log file not exist")
             }else{
                 FileUtil.getFile(errorlog_path, function(o){
                     try{
