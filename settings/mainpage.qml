@@ -284,7 +284,7 @@ Page {
 
                     automaticCheck: false
                     checked: activeState
-                    enabled: allConfigsModel.count > 0 && v2rayConf.remark
+                    enabled: allConfigsModel.count > 0 && v2rayConf.remark && !busy
                     text: qsTr("ShadowFish service state")
 
                     onClicked: {
