@@ -15,7 +15,6 @@ Page {
     readonly property string v2rayConfTemplatePath: "/home/nemo/.config/v2ray/config.json.template"
     property string configStr;
     property string usedConfig;
-    property int replaceId;
 
     ListModel{
         id: allConfigsModel
@@ -49,11 +48,6 @@ Page {
 
     onActiveStateChanged: {
         enableSwitch.busy = false;
-        if(activeState){
-            // eventsView.show();
-        }else{
-            // eventsView.hide();
-        }
     }
 
     ConfigurationGroup {
@@ -97,54 +91,6 @@ Page {
         expireTimeout: 3000
     }
 
-
-    Notification {
-        id: eventsView
-        category: "x-nemo.v2ray"
-        appName: "V2ray"
-        appIcon: "image://theme/icon-settings-v2ray"
-        body: qsTr("V2ray started")
-        previewBody: qsTr("V2ray started")
-        expireTimeout: 0
-        replacesId: 1
-        remoteActions: [{
-             "name": "default",
-             "displayName": "Open v2ray page",
-             "icon": "icon-s-do-it",
-             "service": "com.jolla.settings",
-             "path": "/com/jolla/settings/ui",
-             "iface": "com.jolla.settings.ui",
-             "method": "showPage",
-             "arguments": [ "system_settings/connectivity/v2ray" ]
-         }]
-        onClicked: {
-            console.log("clicked")
-        }
-        onClosed: {
-            console.log("closed")
-            if(activeState){
-                show()
-            }
-        }
-        function show(){
-            console.log("replacesId:", replacesId);
-
-            //hide first
-            if(replacesId != 1){
-                replacesId = replacesId
-            }else{
-                replacesId = 1;
-            }
-            summary = v2rayConf.remark
-            previewSummary = summary
-            expireTimeout = 0
-            publish();
-        }
-        function hide(){
-            close();
-        }
-    }
-
     DBusInterface {
         id: systemdServiceIface
         bus: DBus.SystemBus
@@ -170,7 +116,6 @@ Page {
                 activeState = false
                 checkState.stop();
                 enableSwitch.busy = false;
-                callProxy(true);
             }
             else {
                 if(!checkState.running)checkState.start();
@@ -202,9 +147,6 @@ Page {
         signal unitNew(string name)
         onUnitNew: {
             if (name == "xyz.freedom.v2ray.service") {
-                systemdServiceIface.updateProperties()
-            }
-            if (name == "myv2ray.service") {
                 systemdServiceIface.updateProperties()
             }
         }
@@ -297,18 +239,16 @@ Page {
                                 usedConfig = allConfigsModel.get(i).config;
                             }
                         }
+                        
                         if(checked){
                             callService(activeState, callProxy)
-                            if(!checkState.running)checkState.start();
                         }else{
                             var saved = saveFile();
                             if(saved){
-                                console.log("start do it")
                                 callService(activeState, callProxy)
-                                if(!checkState.running)checkState.start();
                             }else{
-                                console.log("save filed")
                                 notification.show(qsTr("Save to config file failed"));
+                                enableSwitch.busy = false;
                             }
                         }
 
@@ -394,12 +334,6 @@ Page {
     }
 
 
-
-    onStatusChanged: {
-        if(status == PageStatus.Active){
-            if(!checkState.running)checkState.start();
-        }
-    }
 
     function getFromConfFile(){
         FileUtil.doesFileExist(v2rayConfTemplatePath, function(o){
@@ -515,12 +449,12 @@ Page {
         request.open("PUT", v2rayConfPath, false);
         request.send(text);
         var status = request.status;
-        console.log("status:", status);
         return status == 0;
     }
 
 
     function callService(tmpState, callback){
+        console.log("call service")
         var svcArgs = [
                     {'type': 's', 'value': tmpState?'stopSvc':'startSvc'}
                 ];
@@ -531,23 +465,24 @@ Page {
                                }else{
                                    if (v2rayConf.smartProxy) {
                                        console.log("smart switch enabled!")
-                                       if(callback)callback(tmpState);
+                                       if(callback && v2rayConf.smartProxy)callback(tmpState);
                                    }
                                }
                            },
                            function(error) {
-                               console.log("Error:" , error);
+                               console.log("callService Error:" , error);
                                notification.show(qsTr("Start service error"));
                            });
     }
 
     function callProxy(tmpState, callback){
+        console.log("call proxy")
         var args = [
                     {'type': 's', 'value': tmpState?'stopProxy':'startProxy'}
                 ];
         proxyBus.typedCall('doProxy', args,
                            function(result) {
-                               console.log("Debug:",result);
+                               console.log("callProxy Debug:",result);
                                if(!result && !tmpState ){
                                    // callback
                                    activeState = false;
@@ -557,7 +492,7 @@ Page {
                                }
                            },
                            function(error) {
-                               console.log("Error:" , error);
+                               console.log("callProxy Error:" , error);
                                activeState = false;
                                // stop svc
                                callService(true);

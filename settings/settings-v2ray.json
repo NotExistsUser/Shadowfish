@@ -11,6 +11,16 @@
             "params": {
                 "source": "/usr/share/jolla-settings/pages/v2ray/mainpage.qml"
             }
+        },
+        {
+            "path": "system_settings/connectivity/v2ray/enable_switch",
+            "type": "custom",
+            "title": "ShadowFish",
+            "icon": "image://theme/icon-m-v2ray",
+            "params": {
+                "source": "/usr/share/jolla-settings/pages/v2ray/EnableSwitch.qml",
+                "type": "grid"
+            }
         }
     ]
 }

@@ -247,7 +247,7 @@
     </message>
     <message>
         <source>V2ray started</source>
-        <translation>V2ray已启动</translation>
+        <translation type="vanished">V2ray已启动</translation>
     </message>
     <message>
         <source>Log</source>

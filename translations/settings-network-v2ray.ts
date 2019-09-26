@@ -246,10 +246,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>V2ray started</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>

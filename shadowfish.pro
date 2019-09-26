@@ -33,6 +33,7 @@ OTHER_FILES += rpm/shadowfish.spec \
                settings/aboutpage.qml   \
                settings/database.js   \
                settings/addconfigpage.qml \
+               settings/EnableSwitch.qml \
                settings/viewpage.qml \
                settings/clipboardutil.js \
                settings/fileutil.js \
@@ -69,6 +70,7 @@ INSTALLS += dbusService2
 settings.files = settings/mainpage.qml \
                 settings/aboutpage.qml \
                 settings/addconfigpage.qml \
+                settings/EnableSwitch.qml \
                 settings/viewpage.qml \
                 settings/database.js \
                 settings/clipboardutil.js \
