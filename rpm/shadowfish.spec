@@ -9,7 +9,7 @@ Name:       jolla-settings-shadowfish
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
 Summary:    V2ray control UI
-Version:    0.3.4
+Version:    0.3.5
 Release:    1
 Group:      Qt/Qt
 License:    MIT
