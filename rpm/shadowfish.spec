@@ -8,7 +8,7 @@ Name:       jolla-settings-shadowfish
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
-Summary:    V2ray control UI
+Summary:    V2Ray control UI
 Version:    0.3.5
 Release:    1
 Group:      Qt/Qt
@@ -18,7 +18,7 @@ Requires:   v2ray >= 4.17.0
 Requires:   bind-utils
 
 %description
-V2ray control UI, support Vmess and Shadowsocks protocol
+V2Ray control UI, support Vmess and Shadowsocks protocol
 
 
 %prep
