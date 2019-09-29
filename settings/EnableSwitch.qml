@@ -21,7 +21,7 @@ SettingsToggle {
 
     menu: ContextMenu {
         SettingsMenuItem {
-            onClicked: v2raySwitch.goToSettings()
+            onClicked: v2raySwitch.goToSettings("system_settings/connectivity/v2ray")
         }
     }
 

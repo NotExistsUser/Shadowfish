@@ -19,7 +19,8 @@
             "icon": "image://theme/icon-m-v2ray",
             "params": {
                 "source": "/usr/share/jolla-settings/pages/v2ray/EnableSwitch.qml",
-                "type": "grid"
+                "type": "grid",
+		"settings_path": "system_settings/connectivity/v2ray"
             }
         }
     ]
