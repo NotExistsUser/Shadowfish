@@ -122,7 +122,10 @@
             "domain:textnow.com",
             "domain:twitch.tv",
             "domain:wikileaks.org",
-            "domain:naver.com"
+            "domain:naver.com",
+            "domain:sailfishos.club",
+            "domain:jolla.com",
+            "domain:sailfishos.org"
           ]
         },
         {
