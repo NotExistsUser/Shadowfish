@@ -194,14 +194,6 @@
         <translation>ShadowFish服务状态</translation>
     </message>
     <message>
-        <source>Smart global proxy</source>
-        <translation>智能全局代理</translation>
-    </message>
-    <message>
-        <source>Smart global proxy, and skip sites in China</source>
-        <translation>智能全局代理，并且跳过在中国的网站</translation>
-    </message>
-    <message>
         <source>Error occured</source>
         <translation>发生了错误</translation>
     </message>
@@ -252,6 +244,26 @@
     <message>
         <source>Log</source>
         <translation>日志</translation>
+    </message>
+    <message>
+        <source>Proxy Type</source>
+        <translation>代理方式</translation>
+    </message>
+    <message>
+        <source>Proxy type, global, direct, or smart proxy</source>
+        <translation>全局(全部流量走代理)、直连(只启动V2Ray进程)或者智能代理(根据规则分流)</translation>
+    </message>
+    <message>
+        <source>SmartProxy</source>
+        <translation>智能代理</translation>
+    </message>
+    <message>
+        <source>GlobalProxy</source>
+        <translation>全局模式</translation>
+    </message>
+    <message>
+        <source>Direct</source>
+        <translation>直连</translation>
     </message>
 </context>
 <context>

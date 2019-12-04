@@ -16,6 +16,17 @@ Page {
     property string configStr;
     property string usedConfig;
 
+
+    function updateProxyType() {
+        if (v2rayConf.proxyType == "smart") {
+            return 0;
+        } else if (v2rayConf.proxyType == "global") {
+            return 1;
+        } else if (v2rayConf.proxyType == "direct") {
+            return 2;
+        }
+    }
+
     ListModel{
         id: allConfigsModel
     }
@@ -55,7 +66,7 @@ Page {
         path: "/apps/jolla-settings-v2ray"
         property string remark: ""
         property string serverIP: ""
-        property bool smartProxy: true
+        property string proxyType: "smart"
 
     }
 
@@ -199,17 +210,8 @@ Page {
                 title: qsTr("ShadowFish")
             }
 
-            TextSwitch {
-                id: smartSwitch
-                automaticCheck: false
-                checked: v2rayConf.smartProxy
-                enabled: !enableSwitch.checked
-                text: qsTr("Smart global proxy")
-                description: qsTr("Smart global proxy, and skip sites in China")
-                onClicked: {
-                    v2rayConf.smartProxy = !v2rayConf.smartProxy;
-                }
-            }
+
+            
 
             ListItem {
                 id: enableItem
@@ -253,6 +255,45 @@ Page {
                         }
 
                     }
+                }
+            }
+
+
+            ComboBox{
+                id: proxyTypeField
+                width: parent.width
+                label: qsTr("Proxy Type")
+                description: qsTr("Proxy type, global, direct, or smart proxy")
+                currentIndex: updateProxyType()
+                enabled: !enableSwitch.checked
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTr("SmartProxy")
+                    }
+                    MenuItem {
+                        text: qsTr("GlobalProxy")
+                    }
+                    MenuItem{
+                        text: qsTr("Direct")
+                    }
+                }
+                function getVal(){
+                    var newValue;
+                    switch (currentIndex) {
+                    case 0:
+                        newValue = "smart"
+                        break
+                    case 1:
+                        newValue = "global"
+                        break
+                    case 2:
+                        newValue = "direct"
+                        break
+                    }
+                    return newValue;
+                }
+                onCurrentIndexChanged: {
+                    v2rayConf.proxyType = getVal()
                 }
             }
 
@@ -439,6 +480,12 @@ Page {
             text = text.replace("NETWORK", "null");
         }
 
+        // smart or global
+        if (proxyTypeField.getVal() == "global"){
+            text = text.replace(/OUTBOUND_DIRECT/g, "proxy");
+        }else{
+            text = text.replace(/OUTBOUND_DIRECT/g, "direct");
+        }
 
 
         // clean marcs
@@ -463,9 +510,11 @@ Page {
                                if(!result){
                                     console.log("no result")
                                }else{
-                                   if (v2rayConf.smartProxy) {
+                                   if (v2rayConf.proxyType == "smart" ||
+                                        v2rayConf.proxyType == "global"
+                                    ) {
                                        console.log("smart switch enabled!")
-                                       if(callback && v2rayConf.smartProxy)callback(tmpState);
+                                       if(callback)callback(tmpState);
                                    }
                                }
                            },

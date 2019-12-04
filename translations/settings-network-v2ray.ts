@@ -194,14 +194,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Smart global proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Smart global proxy, and skip sites in China</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error occured</source>
         <translation type="unfinished"></translation>
     </message>
@@ -247,6 +239,26 @@
     </message>
     <message>
         <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy type, global, direct, or smart proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SmartProxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GlobalProxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

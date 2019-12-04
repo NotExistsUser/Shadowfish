@@ -21,3 +21,4 @@ function getFile(url, callback){
     xhr.open('GET', url, true);
     xhr.send('');
 }
+

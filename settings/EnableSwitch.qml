@@ -34,7 +34,7 @@ SettingsToggle {
         path: "/apps/jolla-settings-v2ray"
         property string remark: ""
         property string serverIP: ""
-        property bool smartProxy: true
+        property string proxyType: "smart"
 
     }
 
@@ -131,7 +131,9 @@ SettingsToggle {
             return
         }
         v2raySwitch.busy = true;
-        if(v2rayConf.smartProxy){
+        if (v2rayConf.proxyType == "smart" ||
+            v2rayConf.proxyType == "global"
+        ){
             callService(activeState, callProxy)
         }else{
             callService(activeState)
@@ -148,7 +150,9 @@ SettingsToggle {
                                if(!result){
                                     console.log("no result")
                                }else{
-                                   if (v2rayConf.smartProxy) {
+                                   if (v2rayConf.proxyType == "smart" ||
+                                       v2rayConf.proxyType == "global"
+                                   ){
                                        console.log("smart switch enabled!")
                                        if(callback)callback(tmpState);
                                    }

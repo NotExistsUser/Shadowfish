@@ -154,7 +154,7 @@
         {
           "type": "field",
           "port": null,
-          "outboundTag": "direct",
+          "outboundTag": "OUTBOUND_DIRECT",
           "ip": null,
           "domain": [
             "domain:12306.com",
@@ -294,7 +294,7 @@
         {
           "type": "field",
           "port": null,
-          "outboundTag": "direct",
+          "outboundTag": "OUTBOUND_DIRECT",
           "ip": [
             "geoip:private"
           ],
@@ -303,7 +303,7 @@
         {
           "type": "field",
           "port": null,
-          "outboundTag": "direct",
+          "outboundTag": "OUTBOUND_DIRECT",
           "ip": [
             "geoip:cn"
           ],
@@ -312,7 +312,7 @@
         {
           "type": "field",
           "port": null,
-          "outboundTag": "direct",
+          "outboundTag": "OUTBOUND_DIRECT",
           "ip": null,
           "domain": [
             "geosite:cn"
