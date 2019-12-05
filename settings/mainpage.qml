@@ -294,6 +294,9 @@ Page {
                 }
                 onCurrentIndexChanged: {
                     v2rayConf.proxyType = getVal()
+                    if(configsView.count > 0){
+                        saveFile()
+                    }
                 }
             }
 
@@ -554,6 +557,5 @@ Page {
         DB.signcenter = signalCenter;
         getFromConfFile();
         DB.queryall(allConfigsModel);
-
     }
 }
