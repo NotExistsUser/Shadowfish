@@ -270,6 +270,7 @@ Page {
                     MenuItem {
                         text: qsTr("SmartProxy")
                     }
+
                     MenuItem {
                         text: qsTr("GlobalProxy")
                     }
@@ -538,7 +539,7 @@ Page {
                                if(!result && !tmpState ){
                                    // callback
                                    activeState = false;
-                                   notification.show(qsTr("Start smart proxy error"));
+                                   notification.show(qsTr("Start proxy error"));
                                }else{
                                    systemdServiceIface.updateProperties();
                                }
@@ -548,7 +549,7 @@ Page {
                                activeState = false;
                                // stop svc
                                callService(true);
-                               notification.show(qsTr("Start smart proxy error"));
+                               notification.show(qsTr("Start proxy error"));
                            });
     }
 

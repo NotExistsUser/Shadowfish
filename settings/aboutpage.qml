@@ -58,6 +58,24 @@ id: aboutPage
                 font.pixelSize: Theme.fontSizeSmall
             }
 
+            SectionHeader {
+                text: qsTr("Donate")
+            }
+
+            TextArea{
+                text: "Bitcoin: 1BPVYkr4rGxeDidWPGR48Apgn2NvfdRFKc "+
+                      "ETH: 0x7434586e839d9cce25930C2D3369951894bEc34B "
+                focusOnClick: true
+                horizontalAlignment: TextInput.AlignRight
+                wrapMode: Text.WordWrap
+                width: parent.width - Theme.paddingLarge * 2
+                anchors.horizontalCenter: parent.horizontalCenter
+                EnterKey.onClicked: parent.focus = true
+                font.pixelSize: Theme.fontSizeSmall
+                Component.onCompleted: {
+                    readOnly = true;
+                }
+            }
         }
     }
 }

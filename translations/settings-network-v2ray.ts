@@ -31,6 +31,10 @@
         <source>About &lt;b&gt;Filled from Clipboard&lt;/b&gt; feature, use CodeReader and scan qrcode from %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Donate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>addconfigpage</name>
@@ -174,10 +178,6 @@
 <context>
     <name>mainpage</name>
     <message>
-        <source>Start smart proxy error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Start service error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -259,6 +259,10 @@
     </message>
     <message>
         <source>Direct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start proxy error</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

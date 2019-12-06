@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>before start, take a look at how to use v2ray.Recommend server side config is %1 , the default by v2ray is OK too.</source>
-        <translation>在开始前，请看一下如何使用v2ray。建议的服务端配置是 %1 ,v2ray默认生成的也是可以的。</translation>
+        <translation>在开始前，请看一下如何使用V2Ray。建议的服务端配置是 %1 ,V2Ray默认生成的也是可以的。</translation>
     </message>
     <message>
         <source>Default socks port is 1080, and a dokodemo-door port 12345</source>
@@ -30,6 +30,10 @@
     <message>
         <source>About &lt;b&gt;Filled from Clipboard&lt;/b&gt; feature, use CodeReader and scan qrcode from %1</source>
         <translation>关于&lt;b&gt;从剪切板填充&lt;/b&gt;功能，使用CodeReader扫描来自%1的二维码</translation>
+    </message>
+    <message>
+        <source>Donate</source>
+        <translation>捐赠</translation>
     </message>
 </context>
 <context>
@@ -174,8 +178,8 @@
 <context>
     <name>mainpage</name>
     <message>
-        <source>Start smart proxy error</source>
-        <translation>启动智能代理出错</translation>
+        <source>Start proxy error</source>
+        <translation>启动代理出错</translation>
     </message>
     <message>
         <source>Start service error</source>
@@ -236,10 +240,6 @@
     <message>
         <source>Update successful</source>
         <translation>更新成功</translation>
-    </message>
-    <message>
-        <source>V2ray started</source>
-        <translation type="vanished">V2ray已启动</translation>
     </message>
     <message>
         <source>Log</source>
