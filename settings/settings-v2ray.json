@@ -5,7 +5,7 @@
             "path": "system_settings/connectivity/v2ray",
             "title": "ShadowFish",
             "type": "page",
-            "icon": "image://theme/icon-m-v2ray",
+            "icon": "image://theme/icon-m-remote-security",
             "translation_id": "settings-network-v2ray",
             "order": 600,
             "params": {
@@ -16,7 +16,7 @@
             "path": "system_settings/connectivity/v2ray/enable_switch",
             "type": "custom",
             "title": "ShadowFish",
-            "icon": "image://theme/icon-m-v2ray",
+            "icon": "image://theme/icon-m-remote-security",
             "params": {
                 "source": "/usr/share/jolla-settings/pages/v2ray/EnableSwitch.qml",
                 "type": "grid",
