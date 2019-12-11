@@ -1,5 +1,5 @@
+%define     theme sailfish-default
 Name:       jolla-settings-shadowfish
-
 # >> macros
 # << macros
 
@@ -12,10 +12,13 @@ Summary:    V2Ray control UI
 Version:    0.3.6
 Release:    1
 Group:      Qt/Qt
-License:    MIT
+License:    GPLv2
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   v2ray >= 4.17.0
 Requires:   bind-utils
+Requires:   iptables
+
+BuildRequires:  sailfish-svg2png
 
 %description
 V2Ray control UI, support Vmess and Shadowsocks protocol
@@ -81,7 +84,11 @@ dbus-send --system --type=method_call \
 %{_datadir}/translations
 %{_sysconfdir}/dbus-1/system.d/
 %{_unitdir}/
-%{_datadir}/themes/sailfish-default/meegotouch/
 %config /home/nemo/.config/v2ray/config.json.template
-# >> files
-# << files
+
+%{_datadir}/themes/%{theme}/meegotouch/z1.0/icons/*.png
+%{_datadir}/themes/%{theme}/meegotouch/z1.25/icons/*.png
+%{_datadir}/themes/%{theme}/meegotouch/z1.5/icons/*.png
+%{_datadir}/themes/%{theme}/meegotouch/z1.5-large/icons/*.png
+%{_datadir}/themes/%{theme}/meegotouch/z1.75/icons/*.png
+%{_datadir}/themes/%{theme}/meegotouch/z2.0/icons/*.png

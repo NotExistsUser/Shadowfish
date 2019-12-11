@@ -63,11 +63,11 @@ if [ "$1" = "startProxy" ] ;then
     /sbin/iptables -t nat -A V2RAY -p tcp -j REDIRECT --to-ports $LOCALPORT
     /sbin/iptables -t nat -A OUTPUT -p tcp -j V2RAY
     /sbin/iptables -t nat -A PREROUTING  -p tcp -j V2RAY
-    exit 0;
+    exit $?
 elif [ "$1" = "stopProxy" ]; then
     /sbin/iptables -t nat -F # V2RAY
     /sbin/iptables -t nat -X # V2RAY
-    exit 0;
+    exit $?
 elif [ "$1" = "startSvc" ]; then
     systemctl start myv2ray.service 2>&1 >> $ERROR_LOGPATH
     exit $?;
@@ -76,5 +76,6 @@ elif [ "$1" = "stopSvc" ]; then
     echo > $ERROR_LOGPATH 
     exit $?;
 else
+    echo "Use startSvc, stopSvc, startProxy, stopProxy argument"
     exit 1;
 fi
