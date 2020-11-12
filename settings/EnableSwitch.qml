@@ -11,8 +11,7 @@ SettingsToggle {
 
     property string entryPath
     property bool activeState
-    readonly property string v2rayConfPath: "/home/nemo/.config/v2ray/config.json"
-    readonly property string v2rayConfTemplatePath: "/home/nemo/.config/v2ray/config.json.template"
+    readonly property string v2rayConfTemplatePath: "/usr/share/jolla-settings/pages/v2ray/config.json.template"
     checked: activeState
     name: "ShadowFish"
     icon.source: "image://theme/icon-m-v2ray"

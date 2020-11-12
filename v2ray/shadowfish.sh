@@ -1,13 +1,21 @@
 #!/bin/sh
-export PATH=/sbin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/nemo/bin
-SERVER=$(su nemo -c '/usr/bin/dconf read /apps/jolla-settings-v2ray/serverIP'|sed $'s/\'//g')
+NEMOUSER=nemo
+id $NEMOUSER
+if [ "$?" -ne "0" ];then
+    NEMOUSER=defaultuser
+fi
+export PATH=/sbin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+SERVER=$(su $NEMOUSER -c '/usr/bin/dconf read /apps/jolla-settings-v2ray/serverIP'|sed $'s/\'//g')
 LOCALPORT=12345
 LOGPATH=/var/log/v2ray
 ERROR_LOGPATH=$LOGPATH/error.log
+CONFIG_PATH=/home/$NEMOUSER/.shadowfish.json
+
+
 # init log path
 if [ ! -d $LOGPATH ]; then
     mkdir $LOGPATH
-fi 
+fi
 
 # clean log file if bigger than 10KB
 if [ -f $ERROR_LOGPATH ]; then
@@ -18,12 +26,14 @@ if [ -f $ERROR_LOGPATH ]; then
 fi
 
 # config test
-cd /home/nemo/.config/v2ray/
-/usr/bin/v2ray/v2ray -test /home/nemo/.config/v2ray/config.json 2>&1 >> $ERROR_LOGPATH
+pkill v2ray
+/usr/bin/v2ray/v2ray -test $CONFIG_PATH 2>&1 >> $ERROR_LOGPATH
 if [ "$?" -ne "0" ]; then
     exit 1
 fi
 
+# init envirment file
+echo "NEMOUSER=$NEMOUSER" > /tmp/currentuser
 
 if [ "$1" = "startProxy" ] ;then
     /sbin/iptables -t nat -F # V2RAY

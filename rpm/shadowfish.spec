@@ -9,7 +9,7 @@ Name:       jolla-settings-shadowfish
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 
 Summary:    V2Ray control UI
-Version:    0.3.6
+Version:    0.3.7
 Release:    1
 Group:      Qt/Qt
 License:    GPLv2
@@ -18,6 +18,10 @@ Requires:   v2ray >= 4.17.0
 Requires:   bind-utils
 Requires:   iptables
 
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  systemd
 BuildRequires:  sailfish-svg2png
 
 %description
@@ -43,7 +47,6 @@ V2Ray control UI, support Vmess and Shadowsocks protocol
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/home/nemo/.v2ray
 # >> install pre
 %qmake5_install
 
@@ -66,7 +69,6 @@ dbus-send --system --type=method_call \
 --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
 sed -i 's/\r//' /usr/bin/shadowfish.sh
 systemctl daemon-reload
-chown -R nemo:nemo /home/nemo/.config/v2ray
 # << post
 
 %postun
@@ -84,7 +86,6 @@ dbus-send --system --type=method_call \
 %{_datadir}/translations
 %{_sysconfdir}/dbus-1/system.d/
 %{_unitdir}/
-%config /home/nemo/.config/v2ray/config.json.template
 
 %{_datadir}/themes/%{theme}/meegotouch/z1.0/icons/*.png
 %{_datadir}/themes/%{theme}/meegotouch/z1.25/icons/*.png

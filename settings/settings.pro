@@ -8,6 +8,7 @@ settings.files = mainpage.qml \
                 database.js \
                 clipboardutil.js \
                 fileutil.js \
+                config.json.template \
                 v2ray.png
 settings.path = /usr/share/jolla-settings/pages/v2ray/
 INSTALLS += settings

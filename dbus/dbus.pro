@@ -18,5 +18,5 @@ INSTALLS += dbusConf
 # DBus service 2
 dbusService2.files = projectv.v2ray.service \
                     myv2ray.service
-dbusService2.path = /lib/systemd/system/
+dbusService2.path = /usr/lib/systemd/system/
 INSTALLS += dbusService2

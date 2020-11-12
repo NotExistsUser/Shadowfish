@@ -11,8 +11,8 @@ import "./fileutil.js" as FileUtil
 Page {
     id: page
     property bool activeState: false
-    readonly property string v2rayConfPath: "/home/nemo/.config/v2ray/config.json"
-    readonly property string v2rayConfTemplatePath: "/home/nemo/.config/v2ray/config.json.template"
+    property string v2rayConfPath: "/home/nemo/.shadowfish.json"
+    readonly property string v2rayConfTemplatePath: "/usr/share/jolla-settings/pages/v2ray/config.json.template"
     property string configStr;
     property string usedConfig;
 
@@ -397,6 +397,15 @@ Page {
         });
     }
 
+    // Long Live Nemo!!!
+    function getUserName(){
+        FileUtil.doesFileExist(v2rayConfPath, function(o){
+            if(!o.responseText){
+                v2rayConfPath = v2rayConfPath.replace("nemo", "defaultuser");
+            }
+        });
+    }
+
     
 
     function saveFile() {
@@ -556,6 +565,7 @@ Page {
     Component.onCompleted: {
         DB.initialize();
         DB.signcenter = signalCenter;
+        getUserName();
         getFromConfFile();
         DB.queryall(allConfigsModel);
     }
