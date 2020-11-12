@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  RELEASE: 3.4.0.24
+  RELEASE: 3.4.0.22
 
 jobs:
   build:
