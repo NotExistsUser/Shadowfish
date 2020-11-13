@@ -11,6 +11,7 @@ import "./fileutil.js" as FileUtil
 Page {
     id: page
     property bool activeState: false
+    property string nemoFolderPath: "/home/nemo"
     property string v2rayConfPath: "/home/nemo/.shadowfish.json"
     readonly property string v2rayConfTemplatePath: "/usr/share/jolla-settings/pages/v2ray/config.json.template"
     property string configStr;
@@ -399,7 +400,7 @@ Page {
 
     // Long Live Nemo!!!
     function getUserName(){
-        FileUtil.doesFileExist(v2rayConfPath, function(o){
+        FileUtil.doesFileExist(nemoFolderPath, function(o){
             if(!o.responseText){
                 v2rayConfPath = v2rayConfPath.replace("nemo", "defaultuser");
             }
