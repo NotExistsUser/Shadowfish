@@ -25,12 +25,7 @@ if [ -f $ERROR_LOGPATH ]; then
     fi
 fi
 
-# config test
-pkill v2ray
-/usr/bin/v2ray/v2ray -test $CONFIG_PATH 2>&1 >> $ERROR_LOGPATH
-if [ "$?" -ne "0" ]; then
-    exit 1
-fi
+
 
 # init envirment file
 echo "NEMOUSER=$NEMOUSER" > /tmp/currentuser
@@ -43,7 +38,7 @@ if [ "$1" = "startProxy" ] ;then
     if [ -z "$SERVER" ]; then
         exit 1;
     fi
-    
+
     SERVERIPS=$(/usr/bin/nslookup $SERVER|grep Address|grep -v "#"|awk '{print $2}')
     if [ -z "$SERVERIPS" ]; then
         SERVERIPS=$(ping -c 1 $SERVER | gawk -F'[()]' '/PING/{print $2}')
@@ -79,6 +74,12 @@ elif [ "$1" = "stopProxy" ]; then
     /sbin/iptables -t nat -X # V2RAY
     exit $?
 elif [ "$1" = "startSvc" ]; then
+    # config test
+    pkill v2ray
+    /usr/bin/v2ray/v2ray -test |cat $CONFIG_PATH
+    if [ "$?" -ne "0" ]; then
+        exit 1
+    fi
     systemctl start myv2ray.service 2>&1 >> $ERROR_LOGPATH
     exit $?;
 elif [ "$1" = "stopSvc" ]; then
