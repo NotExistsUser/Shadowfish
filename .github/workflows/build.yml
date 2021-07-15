@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  RELEASE: 3.4.0.22
+  RELEASE: 4.1.0.24
 
 jobs:
   build:
@@ -39,21 +39,16 @@ jobs:
             mb2 -t SailfishOS-$RELEASE-i486 build ;
             sudo cp -r RPMS/*.rpm /share/output"
 
+    - name: Build aarch64
+      run: docker run --rm --privileged -v $PWD:/share coderus/sailfishos-platform-sdk-aarch64:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /share/* . ;
+            mb2 -t SailfishOS-$RELEASE-aarch64 build ;
+            sudo cp -r RPMS/*.rpm /share/output"
+
     - name: Upload build result
       uses: actions/upload-artifact@v2
       with:
         name: shadowfish-rpms
         path: output
-
-    - name: Create release
-      if: contains(github.ref, 'release')
-      run: |
-        set -x
-        assets=()
-        for asset in output/*.rpm; do
-          assets+=("-a" "$asset")
-        done
-        tag_name="${GITHUB_REF##*/}"
-        hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
