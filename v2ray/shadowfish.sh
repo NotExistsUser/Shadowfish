@@ -39,7 +39,7 @@ if [ "$1" = "startProxy" ] ;then
         exit 1;
     fi
 
-    SERVERIPS=$(/usr/bin/nslookup $SERVER|grep Address|grep -v "#"|awk '{print $2}')
+    SERVERIPS=$(/usr/bin/nslookup $SERVER 8.8.8.8|grep Address|grep -v "#"|awk '{print $2}')
     if [ -z "$SERVERIPS" ]; then
         SERVERIPS=$(ping -c 1 $SERVER | gawk -F'[()]' '/PING/{print $2}')
         if [ -z "$SERVERIPS" ]; then
